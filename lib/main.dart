@@ -31,6 +31,15 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  var homeButtonStyle = ButtonStyle(
+    textStyle: MaterialStateProperty.all(
+      const TextStyle(fontSize: 16),
+    ),
+    shape: MaterialStateProperty.all(RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(30),
+    )),
+  );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,22 +57,17 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             const SizedBox(height: 60),
-            TextButton(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const ResultsPage(title: "near you"),
-                    ));
-              },
-              child: const Text(
-                "Find waste banks near me",
-                style: TextStyle(color: Colors.white),
-              ),
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
-              ),
-            ),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            const ResultsPage(title: "near you"),
+                      ));
+                },
+                child: const Text("Find waste banks near me"),
+                style: homeButtonStyle),
             const SizedBox(height: 15),
             Text(
               "or",
@@ -75,15 +79,10 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             const SizedBox(height: 15),
-            TextButton(
+            ElevatedButton(
               onPressed: () {},
-              child: const Text(
-                "Pick a location",
-                style: TextStyle(color: Colors.white),
-              ),
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
-              ),
+              child: const Text("Pick a location"),
+              style: homeButtonStyle,
             ),
           ],
         ),
