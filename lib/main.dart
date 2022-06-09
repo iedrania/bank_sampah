@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
-import 'package:latlong2/latlong.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:bank_sampah/results.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,11 +12,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'eWaste',
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: const MyHomePage(title: 'KumpulkanSampahmu'),
+      home: const MyHomePage(title: 'eWaste'),
     );
   }
 }
@@ -31,48 +31,62 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  double lat = -6.88;
-  double lng = 107.61;
-
-  void _incrementCounter() {
-    setState(() {
-      //
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: FlutterMap(
-        options: MapOptions(
-          center: LatLng(lat, lng),
-          zoom: 13.0,
-        ),
-        layers: [
-          TileLayerOptions(
-              urlTemplate: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-              subdomains: ['a', 'b', 'c']
-          ),
-          MarkerLayerOptions(
-            markers: [
-              Marker(
-                width: 80.0,
-                height: 80.0,
-                point: LatLng(51.5, -0.09),
-                builder: (ctx) =>
-                const Icon(Icons.location_pin),
+      body: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              widget.title,
+              style: GoogleFonts.rokkitt(
+                textStyle: const TextStyle(
+                  fontSize: 48,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
-            ],
-          ),
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+            ),
+            const SizedBox(height: 60),
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ResultsPage(title: "near you"),
+                    ));
+              },
+              child: const Text(
+                "Find waste banks near me",
+                style: TextStyle(color: Colors.white),
+              ),
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
+              ),
+            ),
+            const SizedBox(height: 15),
+            Text(
+              "or",
+              style: GoogleFonts.nunito(
+                textStyle: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+            const SizedBox(height: 15),
+            TextButton(
+              onPressed: () {},
+              child: const Text(
+                "Pick a location",
+                style: TextStyle(color: Colors.white),
+              ),
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
