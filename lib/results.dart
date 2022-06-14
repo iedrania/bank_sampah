@@ -1,5 +1,6 @@
 import 'package:bank_sampah/data/bs_overpass_data.dart';
 import 'package:bank_sampah/data/bs_overpass_repo.dart';
+import 'package:bank_sampah/result_map.dart';
 import 'package:flutter/material.dart';
 
 class ResultsPage extends StatefulWidget {
@@ -49,23 +50,42 @@ class _ResultsPageState extends State<ResultsPage> {
                   child: ListView.builder(
                     padding: const EdgeInsets.only(left: 30, right: 30),
                     itemCount: snapshot.data!.elements.length,
-                    itemBuilder: (context, index) => Card(
-                      elevation: 2,
-                      margin: const EdgeInsets.only(top: 10, bottom: 10),
-                      child: Container(
-                        padding: const EdgeInsets.all(16),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(snapshot.data!.elements[index].tags.name),
-                            const SizedBox(height: 4),
-                            Text(
-                              formulateAddress(
+                    itemBuilder: (context, index) => GestureDetector(
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ResultMapPage(
+                              title: snapshot.data!.elements[index].tags.name,
+                              address: formulateAddress(
                                   snapshot.data!.elements[index].tags.addrFull,
                                   snapshot.data!.elements[index].tags
                                       .addrCity ??= ""),
-                            )
-                          ],
+                              lat: snapshot.data!.elements[index].lat,
+                              lng: snapshot.data!.elements[index].lon),
+                        ),
+                      ),
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        elevation: 4,
+                        margin: const EdgeInsets.only(top: 10, bottom: 10),
+                        child: Container(
+                          padding: const EdgeInsets.all(16),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(snapshot.data!.elements[index].tags.name),
+                              const SizedBox(height: 4),
+                              Text(
+                                formulateAddress(
+                                    snapshot
+                                        .data!.elements[index].tags.addrFull,
+                                    snapshot.data!.elements[index].tags
+                                        .addrCity ??= ""),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),

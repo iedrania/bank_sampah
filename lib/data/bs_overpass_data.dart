@@ -31,24 +31,24 @@ class Element {
   Element({
     required this.type,
     required this.id,
-    // this.lat,
-    // this.lon,
+    required this.lat,
+    required this.lon,
     required this.tags,
     // this.center,
   });
 
   String type;
   int id;
-  // double? lat;
-  // double? lon;
+  double lat;
+  double lon;
   Tags tags;
   // CenterPos? center;
 
   factory Element.fromJson(Map<String, dynamic> json) => Element(
     type: json["type"],
     id: json["id"],
-    // lat: json["lat"]?.json["lat"].toDouble(),
-    // lon: json["lon"]?.json["lon"].toDouble(),
+    lat: json["lat"].toDouble(),
+    lon: json["lon"].toDouble(),
     tags: Tags.fromJson(json["tags"]),
     // center: json["center"]?.CenterPos.fromJson(json["center"]),
   );
